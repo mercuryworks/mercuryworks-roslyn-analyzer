@@ -52,7 +52,7 @@ jobs:
         uses: EasyDesk/action-dotnet-pack@v1.0.0
         with:
           # List of project names to pack separately.
-          project-names: orville
+          project-names: orville_bailey_analyzers.Package
           # Version of the Nuget packages.
           package-version: ${{ steps.get_version.outputs.version-without-v }}
           output-dir: ./package-output
