@@ -8,18 +8,15 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>orville_bailey_analyzers</PackageId>
+    <PackageId>OrvilleBailey.Analyzer</PackageId>
     <PackageVersion>1.0.0.0</PackageVersion>
-    <Authors>Jeremy</Authors>
-    <PackageLicenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</PackageLicenseUrl>
-    <PackageProjectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</PackageProjectUrl>
-    <PackageIconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</PackageIconUrl>
-    <RepositoryUrl>http://REPOSITORY_URL_HERE_OR_DELETE_THIS_LINE</RepositoryUrl>
+    <Authors>Orville Bailey</Authors>
+    <PackageProjectUrl>https://github.com/orville94Bailey/orville-bailey-analyzers</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/orville94Bailey/orville-bailey-analyzers</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>orville_bailey_analyzers</Description>
-    <PackageReleaseNotes>Summary of changes made in this release of the package.</PackageReleaseNotes>
-    <Copyright>Copyright</Copyright>
-    <PackageTags>orville_bailey_analyzers, analyzers</PackageTags>
+    <Description>A collection of analyzers from preferences I encounter.</Description>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageTags>analyzers</PackageTags>
     <DevelopmentDependency>true</DevelopmentDependency>
     <NoPackageAnalysis>true</NoPackageAnalysis>
 

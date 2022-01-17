@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# DoNotReturnTuples: Method returns a Tuple type object
+dotnet_diagnostic.DoNotReturnTuples.severity = error

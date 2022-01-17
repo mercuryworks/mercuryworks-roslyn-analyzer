@@ -20,7 +20,7 @@ namespace orville_bailey_analyzers.Test
 
         //Diagnostic and CodeFix both triggered and checked for
         [TestMethod]
-        public async Task CustomClassesInTuple()
+        public async Task custom_classes_are_handled_appropriately()
         {
             var test = @"
 using System;
@@ -138,7 +138,7 @@ namespace ConsoleApplication1
 
         //Diagnostic and CodeFix both triggered and checked for
         [TestMethod]
-        public async Task DiagnosticIsPresent()
+        public async Task tuple_create_triggers_diagnostic()
         {
             var test = @"
     using System;
@@ -164,7 +164,33 @@ namespace ConsoleApplication1
         }
 
         [TestMethod]
-        public async Task NamedTuplesTrigger()
+        public async Task named_tuples_trigger_diagnostics()
+        {
+            var test = @"
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+
+namespace ConsoleApplication1
+{
+    class TypeName
+    {   
+        public (int a, int b) {|#0:Test|}()
+        {
+            return (1,3);
+        }
+    }
+}";
+
+            var expected = VerifyCS.Diagnostic("DoNotReturnTuples").WithLocation(0).WithArguments("Test");
+            await VerifyCS.VerifyAnalyzerAsync(test, expected);
+        }
+
+        [TestMethod]
+        public async Task named_tuples_preserve_names()
         {
             var test = @"
 using System;
@@ -198,20 +224,84 @@ namespace ConsoleApplication1
     {   
         public TestDTO Test()
         {
-            return new TestDTO { Item1 = 1, Item2 = 3 };
+            return new TestDTO { a = 1, b = 3 };
         }
 
         public class TestDTO
         {
-            public int Item1 { get; set; }
-            public int Item2 { get; set; }
+            public int a { get; set; }
+            public int b { get; set; }
         }
     }
 }";
-        
+
             var expected = VerifyCS.Diagnostic("DoNotReturnTuples").WithLocation(0).WithArguments("Test");
             await VerifyCS.VerifyCodeFixAsync(test, expected, fixtest);
         }
 
+        [TestMethod]
+        public async Task named_tuples_with_classes_work()
+        {
+            var test = @"
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+
+namespace ConsoleApplication1
+{
+    class TypeName
+    {   
+        public (int a, testClass b) {|#0:Test|}()
+        {
+            return (1,new testClass());
+        }
+
+        public class testClass {}
+    }
+}";
+            var fixtest = @"
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+
+namespace ConsoleApplication1
+{
+    class TypeName
+    {   
+        public TestDTO Test()
+        {
+            return new TestDTO { a = 1, b = new testClass() };
+        }
+
+        public class TestDTO
+        {
+            public int a { get; set; }
+            public testClass b { get; set; }
+        }
+
+        public class testClass {}
+    }
+}";
+
+            var expected = VerifyCS.Diagnostic("DoNotReturnTuples").WithLocation(0).WithArguments("Test");
+            await VerifyCS.VerifyCodeFixAsync(test, expected, fixtest);
+        }
+    }
+}
+
+namespace test
+{
+    class typename
+    {
+        public (int a, int b) Test()
+        {
+            return (a: 1, b: 2);
+        }
     }
 }

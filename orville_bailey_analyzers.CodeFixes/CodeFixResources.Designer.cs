@@ -61,15 +61,6 @@ namespace orville_bailey_analyzers {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Make uppercase.
-        /// </summary>
-        internal static string CodeFixTitle {
-            get {
-                return ResourceManager.GetString("CodeFixTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create DTO from tuple.
         /// </summary>
         internal static string DoNotReturnTuplesTitle {

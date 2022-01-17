@@ -43,9 +43,9 @@ namespace orville_bailey_analyzers
             var declaration = root.FindToken(diagnosticSpan.Start).Parent.AncestorsAndSelf().OfType<MethodDeclarationSyntax>().First();
             context.RegisterCodeFix(
                 CodeAction.Create(
-                    title: CodeFixResources.CodeFixTitle,
+                    title: CodeFixResources.DoNotReturnTuplesTitle,
                     createChangedDocument: c => CreateClassFromTuple(context.Document, declaration, c),
-                    equivalenceKey: nameof(CodeFixResources.CodeFixTitle)
+                    equivalenceKey: nameof(CodeFixResources.DoNotReturnTuplesTitle)
                     ),
                 diagnostic);
         }
@@ -60,13 +60,9 @@ namespace orville_bailey_analyzers
             var returnStatement = declaration.Body.ChildNodes().OfType<ReturnStatementSyntax>().First();
 
             var typeSyntax = SyntaxFactory.IdentifierName(classDeclaration.Identifier);
-            //SyntaxFactory.ReturnStatement(
-            //    SyntaxFactory.ExpressionStatement()
-            //);
 
-            var args = GenerateArgsFromTupleReturn(returnStatement);
+            var args = GenerateArgsFromTupleReturn(returnStatement, classDeclaration);
 
-            //SyntaxFactory.InitializerExpression
             var holder = SyntaxFactory.ObjectCreationExpression(typeSyntax)
                 .WithInitializer(SyntaxFactory.InitializerExpression(SyntaxKind.ObjectInitializerExpression, args))
                 .NormalizeWhitespace();
@@ -82,42 +78,75 @@ namespace orville_bailey_analyzers
 
         private static ClassDeclarationSyntax GenerateClassFromTuple(MethodDeclarationSyntax declaration)
         {
-            var typesInTuple = declaration.ReturnType.DescendantNodesAndSelf().OfType<TypeArgumentListSyntax>().FirstOrDefault()?.Arguments;
-            if (typesInTuple == null && declaration.ReturnType is TupleTypeSyntax tupleTypeSyntax)
-            {
-                typesInTuple = (new SeparatedSyntaxList<TypeSyntax>()).AddRange(tupleTypeSyntax.Elements.Select(t => t.Type));
-            }
-
             var classDeclaration = SyntaxFactory.ClassDeclaration($"{declaration.Identifier.Text}DTO")
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-            int index = 1;
-            foreach (var type in typesInTuple)
+
+            var typesInTuple = declaration.ReturnType.DescendantNodesAndSelf().OfType<TypeArgumentListSyntax>().FirstOrDefault()?.Arguments;
+
+            SeparatedSyntaxList<MemberDeclarationSyntax> propertyDeclarations; 
+
+            if (typesInTuple == null && declaration.ReturnType is TupleTypeSyntax tupleTypeSyntax)
             {
-                MemberDeclarationSyntax propertyDeclaration = null;
-                if (type is IdentifierNameSyntax identifierName)
+                propertyDeclarations = GeneratePropertiesFromTupleTypeSyntax(tupleTypeSyntax);
+
+                classDeclaration = classDeclaration.AddMembers(propertyDeclarations.ToArray());
+            }
+            else
+            {
+                int index = 1;
+                foreach (var type in typesInTuple)
                 {
-                    propertyDeclaration = SyntaxFactory.PropertyDeclaration(SyntaxFactory.IdentifierName(identifierName.Identifier), $"Item{index}")
-                        .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                        .AddAccessorListAccessors(
-                            SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
-                            SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+                    MemberDeclarationSyntax propertyDeclaration = null;
+                    if (type is IdentifierNameSyntax identifierName)
+                    {
+                        propertyDeclaration = SyntaxFactory.PropertyDeclaration(SyntaxFactory.IdentifierName(identifierName.Identifier), $"Item{index}")
+                            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                            .AddAccessorListAccessors(
+                                SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
+                                SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+                    }
+                    else if (type is PredefinedTypeSyntax predefinedType)
+                    {
+                        propertyDeclaration = SyntaxFactory.PropertyDeclaration(SyntaxFactory.PredefinedType(predefinedType.Keyword), $"Item{index}")
+                            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                            .AddAccessorListAccessors(
+                                SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
+                                SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+                    }
+                    ++index;
+                    classDeclaration = classDeclaration.AddMembers(propertyDeclaration);
                 }
-                else if (type is PredefinedTypeSyntax predefinedType)
-                {
-                    propertyDeclaration = SyntaxFactory.PropertyDeclaration(SyntaxFactory.PredefinedType(predefinedType.Keyword), $"Item{index}")
-                        .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                        .AddAccessorListAccessors(
-                            SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
-                            SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
-                }
-                ++index;
-                classDeclaration = classDeclaration.AddMembers(propertyDeclaration);
             }
 
             return classDeclaration;
         }
 
-        private static SeparatedSyntaxList<ExpressionSyntax> GenerateArgsFromTupleReturn(ReturnStatementSyntax current)
+        private static SeparatedSyntaxList<MemberDeclarationSyntax> GeneratePropertiesFromTupleTypeSyntax(TupleTypeSyntax tupleTypeSyntax)
+        {
+            return new SeparatedSyntaxList<MemberDeclarationSyntax>().AddRange(
+                tupleTypeSyntax.Elements.Select(t =>
+                {
+                    switch (t.Type)
+                    {
+                        case PredefinedTypeSyntax predefined:
+                            return SyntaxFactory.PropertyDeclaration(SyntaxFactory.PredefinedType(predefined.Keyword), t.Identifier.Text)
+                                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                                .AddAccessorListAccessors(
+                                    SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
+                                    SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+                        case IdentifierNameSyntax identifier:
+                            return SyntaxFactory.PropertyDeclaration(SyntaxFactory.IdentifierName(identifier.Identifier), t.Identifier.Text)
+                                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                                .AddAccessorListAccessors(
+                                    SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
+                                    SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+                        default:
+                            throw new NotImplementedException();
+                    }
+                }));
+        }
+
+        private static SeparatedSyntaxList<ExpressionSyntax> GenerateArgsFromTupleReturn(ReturnStatementSyntax current, ClassDeclarationSyntax classDeclaration)
         {
             var ssList = SyntaxFactory.SeparatedList<ExpressionSyntax>();
             var argList = SyntaxFactory.SeparatedList<ArgumentSyntax>();
@@ -133,7 +162,8 @@ namespace orville_bailey_analyzers
             var index = 1;
             foreach (var item in argList)
             {
-                ssList = ssList.Add(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, SyntaxFactory.IdentifierName($"Item{index}"), item.Expression));
+                var identifierName = (classDeclaration.Members[index - 1] as PropertyDeclarationSyntax).Identifier.Text;
+                ssList = ssList.Add(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, SyntaxFactory.IdentifierName(identifierName), item.Expression));
                 ++index;
             }
             return ssList;
