@@ -63,5 +63,5 @@ jobs:
         uses: EasyDesk/action-nuget-push@v1.0.0
         with:
           # The Nuget API key.
-          nuget-api-key: ${{secrets.nuget_key}}
+          nuget-api-key: ${{secrets.NUGET_KEY}}
           publish-dir: ./package-output
