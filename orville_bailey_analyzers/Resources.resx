@@ -138,4 +138,16 @@
   <data name="DoNotReturnTuplesTitle" xml:space="preserve">
     <value>Method returns a Tuple type object</value>
   </data>
+  <data name="DoNotUseDefaultValueForEnumsDescription" xml:space="preserve">
+    <value>Enums should not use the default value.</value>
+  </data>
+  <data name="DoNotUseDefaultValueForEnumsFormat" xml:space="preserve">
+    <value>Enum named '{0}' uses the default value.</value>
+  </data>
+  <data name="DoNotUseDefaultValueForEnumsTitle" xml:space="preserve">
+    <value>Do not use the default value for an enum.</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value />
+  </data>
 </root>

@@ -113,5 +113,41 @@ namespace orville_bailey_analyzers {
                 return ResourceManager.GetString("DoNotReturnTuplesTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enums should not use the default value..
+        /// </summary>
+        internal static string DoNotUseDefaultValueForEnumsDescription {
+            get {
+                return ResourceManager.GetString("DoNotUseDefaultValueForEnumsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enum named &apos;{0}&apos; uses the default value..
+        /// </summary>
+        internal static string DoNotUseDefaultValueForEnumsFormat {
+            get {
+                return ResourceManager.GetString("DoNotUseDefaultValueForEnumsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not use the default value for an enum..
+        /// </summary>
+        internal static string DoNotUseDefaultValueForEnumsTitle {
+            get {
+                return ResourceManager.GetString("DoNotUseDefaultValueForEnumsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Prefix {
+            get {
+                return ResourceManager.GetString("Prefix", resourceCulture);
+            }
+        }
     }
 }
