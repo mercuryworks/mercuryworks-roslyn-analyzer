@@ -19,20 +19,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - name: Get Version
-        # You may pin to the exact commit or the version.
-        # uses: battila7/get-version-action@90eb8fc70f6dfcf3f9b95ed8f164d2c05038e729
-        uses: battila7/get-version-action@v2.2.1
-        
-      - name: Print Version
-        run: echo ${{steps.get_version.outputs.version-without-v}}
-      - name: Print Version
-        run: echo ${steps.get_version.outputs.version-without-v}
+      - name: Set VERSION variable from tag
+        run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
 
       - name: Build
-        run: dotnet build --configuration Release /p:Version=${{steps.get_version.outputs.version-without-v}}
+        run: dotnet build --configuration Release /p:Version=${VERSION}
+        
       - name: Test
-        run: dotnet test --configuration Release /p:Version=${{steps.get_version.outputs.version-without-v}} --no-build
+        run: dotnet test --configuration Release /p:Version=${VERSION} --no-build
         
       - name: Setup NuGet.exe for use with actions
         # You may pin to the exact commit or the version.
@@ -47,7 +41,7 @@ jobs:
           # List of project names to pack separately.
           project-names: orville_bailey_analyzers.Package
           # Version of the Nuget packages.
-          package-version: ${{steps.get_version.outputs.version-without-v}}
+          package-version: ${VERSION}
           output-dir: ./package-output
     
       - name: Push Nuget Packages
