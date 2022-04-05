@@ -129,15 +129,6 @@
     <value>Type name contains lowercase letters</value>
     <comment>The title of the diagnostic.</comment>
   </data>
-  <data name="DoNotHaveAnEnumValueOfZeroDescription" xml:space="preserve">
-    <value>Enums should not use a zero value in the event that they need to be created as a table in a database.</value>
-  </data>
-  <data name="DoNotHaveAnEnumValueOfZeroFormat" xml:space="preserve">
-    <value>Enum named '{0}' has a value of zero.</value>
-  </data>
-  <data name="DoNotHaveAnEnumValueOfZeroTitle" xml:space="preserve">
-    <value>Do not use 0 as an enum value</value>
-  </data>
   <data name="DoNotReturnTuplesDescription" xml:space="preserve">
     <value>Public, Protected, and Internal methods should not return Tuple type objects.</value>
   </data>
@@ -146,5 +137,17 @@
   </data>
   <data name="DoNotReturnTuplesTitle" xml:space="preserve">
     <value>Method returns a Tuple type object</value>
+  </data>
+  <data name="DoNotUseDefaultValueForEnumsDescription" xml:space="preserve">
+    <value>Enums should not use the default value.</value>
+  </data>
+  <data name="DoNotUseDefaultValueForEnumsFormat" xml:space="preserve">
+    <value>Enum named '{0}' uses the default value.</value>
+  </data>
+  <data name="DoNotUseDefaultValueForEnumsTitle" xml:space="preserve">
+    <value>Do not use the default value for an enum.</value>
+  </data>
+  <data name="Prefix" xml:space="preserve">
+    <value />
   </data>
 </root>

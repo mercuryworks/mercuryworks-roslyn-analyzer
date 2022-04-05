@@ -57,21 +57,22 @@ namespace orville_bailey_analyzers
 
             ClassDeclarationSyntax classDeclaration = GenerateClassFromTuple(declaration);
 
-            var returnStatement = declaration.Body.ChildNodes().OfType<ReturnStatementSyntax>().First();
-
             var typeSyntax = SyntaxFactory.IdentifierName(classDeclaration.Identifier);
 
-            var args = GenerateArgsFromTupleReturn(returnStatement, classDeclaration);
-
-            var holder = SyntaxFactory.ObjectCreationExpression(typeSyntax)
-                .WithInitializer(SyntaxFactory.InitializerExpression(SyntaxKind.ObjectInitializerExpression, args))
-                .NormalizeWhitespace();
-
-            editor.InsertAfter(declaration, classDeclaration.WithAdditionalAnnotations(Formatter.Annotation));
+            editor.InsertAfter(declaration.Parent, classDeclaration.WithAdditionalAnnotations(Formatter.Annotation));
 
             editor.ReplaceNode(declaration.ReturnType, typeSyntax.WithAdditionalAnnotations(Formatter.Annotation));
 
-            editor.ReplaceNode(returnStatement.Expression, holder.WithAdditionalAnnotations(Formatter.Annotation));
+            // interfaces have a null body for method declaration
+            if (declaration.Body != null)
+            {
+                var returnStatement = declaration.Body?.ChildNodes().OfType<ReturnStatementSyntax>().First();
+                var args = GenerateArgsFromTupleReturn(returnStatement, classDeclaration);
+                var holder = SyntaxFactory.ObjectCreationExpression(typeSyntax)
+                    .WithInitializer(SyntaxFactory.InitializerExpression(SyntaxKind.ObjectInitializerExpression, args))
+                    .NormalizeWhitespace();
+                editor.ReplaceNode(returnStatement.Expression, holder.WithAdditionalAnnotations(Formatter.Annotation));
+            }
 
             return editor.GetChangedDocument();
         }
@@ -149,6 +150,8 @@ namespace orville_bailey_analyzers
         private static SeparatedSyntaxList<ExpressionSyntax> GenerateArgsFromTupleReturn(ReturnStatementSyntax current, ClassDeclarationSyntax classDeclaration)
         {
             var ssList = SyntaxFactory.SeparatedList<ExpressionSyntax>();
+            if (current is null) return ssList;
+
             var argList = SyntaxFactory.SeparatedList<ArgumentSyntax>();
             if (current.Expression is TupleExpressionSyntax tupleSyntax)
             {

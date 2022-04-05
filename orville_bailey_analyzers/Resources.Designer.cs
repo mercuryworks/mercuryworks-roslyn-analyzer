@@ -88,33 +88,6 @@ namespace orville_bailey_analyzers {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enums should not use a zero value in the event that they need to be created as a table in a database..
-        /// </summary>
-        internal static string DoNotHaveAnEnumValueOfZeroDescription {
-            get {
-                return ResourceManager.GetString("DoNotHaveAnEnumValueOfZeroDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enum named &apos;{0}&apos; has a value of zero..
-        /// </summary>
-        internal static string DoNotHaveAnEnumValueOfZeroFormat {
-            get {
-                return ResourceManager.GetString("DoNotHaveAnEnumValueOfZeroFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do not use 0 as an enum value.
-        /// </summary>
-        internal static string DoNotHaveAnEnumValueOfZeroTitle {
-            get {
-                return ResourceManager.GetString("DoNotHaveAnEnumValueOfZeroTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Public, Protected, and Internal methods should not return Tuple type objects..
         /// </summary>
         internal static string DoNotReturnTuplesDescription {
@@ -138,6 +111,42 @@ namespace orville_bailey_analyzers {
         internal static string DoNotReturnTuplesTitle {
             get {
                 return ResourceManager.GetString("DoNotReturnTuplesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enums should not use the default value..
+        /// </summary>
+        internal static string DoNotUseDefaultValueForEnumsDescription {
+            get {
+                return ResourceManager.GetString("DoNotUseDefaultValueForEnumsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enum named &apos;{0}&apos; uses the default value..
+        /// </summary>
+        internal static string DoNotUseDefaultValueForEnumsFormat {
+            get {
+                return ResourceManager.GetString("DoNotUseDefaultValueForEnumsFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not use the default value for an enum..
+        /// </summary>
+        internal static string DoNotUseDefaultValueForEnumsTitle {
+            get {
+                return ResourceManager.GetString("DoNotUseDefaultValueForEnumsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Prefix {
+            get {
+                return ResourceManager.GetString("Prefix", resourceCulture);
             }
         }
     }

@@ -38,12 +38,12 @@ namespace ConsoleApplication1
         {
             return Tuple.Create(new ABC(),1);
         }
+    }
 
-        public class ABC
+    public class ABC
+    {
+        public ABC() 
         {
-            public ABC() 
-            {
-            }
         }
     }
 }";
@@ -64,18 +64,18 @@ namespace ConsoleApplication1
         {
             return new TestDTO { Item1 = new ABC(), Item2 = 1 };
         }
+    }
 
-        public class TestDTO
-        {
-            public ABC Item1 { get; set; }
-            public int Item2 { get; set; }
-        }
+    public class TestDTO
+    {
+        public ABC Item1 { get; set; }
+        public int Item2 { get; set; }
+    }
 
-        public class ABC
+    public class ABC
+    {
+        public ABC() 
         {
-            public ABC() 
-            {
-            }
         }
     }
 }";
@@ -123,12 +123,12 @@ namespace ConsoleApplication1
         {
             return new TestDTO { Item1 = 1, Item2 = 1 };
         }
+    }
 
-        public class TestDTO
-        {
-            public int Item1 { get; set; }
-            public int Item2 { get; set; }
-        }
+    public class TestDTO
+    {
+        public int Item1 { get; set; }
+        public int Item2 { get; set; }
     }
 }";
 
@@ -226,12 +226,12 @@ namespace ConsoleApplication1
         {
             return new TestDTO { a = 1, b = 3 };
         }
+    }
 
-        public class TestDTO
-        {
-            public int a { get; set; }
-            public int b { get; set; }
-        }
+    public class TestDTO
+    {
+        public int a { get; set; }
+        public int b { get; set; }
     }
 }";
 
@@ -258,9 +258,9 @@ namespace ConsoleApplication1
         {
             return (1,new testClass());
         }
-
-        public class testClass {}
     }
+
+    public class testClass {}
 }";
             var fixtest = @"
 using System;
@@ -278,15 +278,83 @@ namespace ConsoleApplication1
         {
             return new TestDTO { a = 1, b = new testClass() };
         }
+    }
 
-        public class TestDTO
-        {
-            public int a { get; set; }
-            public testClass b { get; set; }
+    public class TestDTO
+    {
+        public int a { get; set; }
+        public testClass b { get; set; }
+    }
+
+    public class testClass {}
+}";
+
+            var expected = VerifyCS.Diagnostic("DoNotReturnTuples").WithLocation(0).WithArguments("Test");
+            await VerifyCS.VerifyCodeFixAsync(test, expected, fixtest);
         }
 
-        public class testClass {}
+        [TestMethod]
+        public async Task it_triggers_in_an_interface()
+        {
+            var test = @"
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+
+namespace ConsoleApplication1
+{
+    interface test {
+        (int a, int b) {|#0:Test|}();
     }
+}";
+            var expected = VerifyCS.Diagnostic("DoNotReturnTuples").WithLocation(0).WithArguments("Test");
+            await VerifyCS.VerifyAnalyzerAsync(test, expected);
+        }
+
+        [TestMethod]
+        public async Task codefix_works_in_an_interface()
+        {
+            var test = @"
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+
+namespace ConsoleApplication1
+{
+    interface test {
+        (int a, testClass b) {|#0:Test|}();
+    }
+
+    public class testClass {}
+}";
+
+            var fixtest = @"
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Diagnostics;
+
+namespace ConsoleApplication1
+{
+    interface test {
+        TestDTO {|#0:Test|}();
+    }
+
+    public class TestDTO
+    {
+        public int a { get; set; }
+        public testClass b { get; set; }
+    }
+
+    public class testClass {}
 }";
 
             var expected = VerifyCS.Diagnostic("DoNotReturnTuples").WithLocation(0).WithArguments("Test");
@@ -303,5 +371,9 @@ namespace test
         {
             return (a: 1, b: 2);
         }
+    }
+
+    interface test {
+        (int a, int b) Test();
     }
 }

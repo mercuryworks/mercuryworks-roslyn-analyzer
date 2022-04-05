@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 namespace orville_bailey_analyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class DoNotHaveAnEnumValueOfZero : DiagnosticAnalyzer
+    public class DoNotUseDefaultValueForEnums : DiagnosticAnalyzer
     {
-        public const string DiagnosticId = "DoNotHaveAnEnumValueOfZero";
+        public const string DiagnosticId = "DoNotUseDefaultValueForEnums";
         // You can change these strings in the Resources.resx file. If you do not want your analyzer to be localize-able, you can use regular strings for Title and MessageFormat.
         // See https://github.com/dotnet/roslyn/blob/main/docs/analyzers/Localizing%20Analyzers.md for more on localization
-        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.DoNotHaveAnEnumValueOfZeroTitle), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.DoNotHaveAnEnumValueOfZeroFormat), Resources.ResourceManager, typeof(Resources));
-        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.DoNotHaveAnEnumValueOfZeroDescription), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Title = new LocalizableResourceString(nameof(Resources.DoNotUseDefaultValueForEnumsTitle), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString MessageFormat = new LocalizableResourceString(nameof(Resources.DoNotUseDefaultValueForEnumsFormat), Resources.ResourceManager, typeof(Resources));
+        private static readonly LocalizableString Description = new LocalizableResourceString(nameof(Resources.DoNotUseDefaultValueForEnumsDescription), Resources.ResourceManager, typeof(Resources));
         private const string Category = "Naming";
 
         private static readonly DiagnosticDescriptor Rule = new DiagnosticDescriptor(DiagnosticId, Title, MessageFormat, Category, DiagnosticSeverity.Error, isEnabledByDefault: true, description: Description);

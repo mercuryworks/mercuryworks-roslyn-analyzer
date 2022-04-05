@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VerifyCS = orville_bailey_analyzers.Test.CSharpAnalyzerVerifier<orville_bailey_analyzers.DoNotHaveAnEnumValueOfZero>;
+using VerifyCS = orville_bailey_analyzers.Test.CSharpAnalyzerVerifier<orville_bailey_analyzers.DoNotUseDefaultValueForEnums>;
 
 namespace orville_bailey_analyzers.Test
 {
     [TestClass]
-    public class DoNotHaveAnEnumValueOfZeroUnitTests
+    public class DoNotUseDefaultValueForEnumsTests
     {
         [TestMethod]
         public async Task empty_string_has_no_issues()
@@ -39,7 +39,7 @@ namespace test
     }
 } ";
 
-            var expected = VerifyCS.Diagnostic("DoNotHaveAnEnumValueOfZero").WithLocation(0).WithArguments("abc");
+            var expected = VerifyCS.Diagnostic("DoNotUseDefaultValueForEnums").WithLocation(0).WithArguments("abc");
             await VerifyCS.VerifyAnalyzerAsync(test, expected);
         }
 
@@ -63,7 +63,7 @@ namespace test
     }
 } ";
 
-            var expected = VerifyCS.Diagnostic("DoNotHaveAnEnumValueOfZero").WithLocation(0).WithArguments("abc");
+            var expected = VerifyCS.Diagnostic("DoNotUseDefaultValueForEnums").WithLocation(0).WithArguments("abc");
             await VerifyCS.VerifyAnalyzerAsync(test, expected);
         }
     }
