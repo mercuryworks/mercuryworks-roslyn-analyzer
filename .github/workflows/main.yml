@@ -42,7 +42,7 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
         
       - name: Create NuGet Package
-        run: dotnet pack mercuryworks-analyzers.Package/mercuryworks_analyzers.Package.csproj -o ./package-output -c Release -p:Version=${VERSION} --no-build
+        run: dotnet pack mercuryworks-analyzers.Package/mercuryworks_analyzers.Package.csproj -o ./package-output -c Release -p:PackageVersion=${VERSION} --no-build
     
       - name: Push Nuget Package
         # You may pin to the exact commit or the version.
