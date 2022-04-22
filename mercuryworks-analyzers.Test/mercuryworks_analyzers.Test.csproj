@@ -21,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\orville_bailey_analyzers.CodeFixes\mercuryworks_analyzers.CodeFixes.csproj" />
-    <ProjectReference Include="..\orville_bailey_analyzers\mercuryworks_analyzers.csproj" />
+    <ProjectReference Include="..\mercuryworks-analyzers.CodeFixes\mercuryworks_analyzers.CodeFixes.csproj" />
+    <ProjectReference Include="..\mercuryworks-analyzers\mercuryworks_analyzers.csproj" />
   </ItemGroup>
 
 </Project>

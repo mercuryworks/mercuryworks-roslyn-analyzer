@@ -4,8 +4,8 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <RootNamespace>orville_bailey_analyzers.Vsix</RootNamespace>
-    <AssemblyName>orville_bailey_analyzers.Vsix</AssemblyName>
+    <RootNamespace>mercuryworks_analyzers.Vsix</RootNamespace>
+    <AssemblyName>mercuryworks_analyzers.Vsix</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -29,8 +29,8 @@
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets')" />
 
   <ItemGroup>
-    <ProjectReference Include="..\orville_bailey_analyzers.CodeFixes\mercuryworks_analyzers.CodeFixes.csproj" />
-    <ProjectReference Include="..\orville_bailey_analyzers\mercuryworks_analyzers.csproj" />
+    <ProjectReference Include="..\mercuryworks-analyzers.CodeFixes\mercuryworks_analyzers.CodeFixes.csproj" />
+    <ProjectReference Include="..\mercuryworks-analyzers\mercuryworks_analyzers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

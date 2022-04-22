@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <RootNamespace>orville_bailey_analyzers</RootNamespace>
+    <RootNamespace>mercuryworks_analyzers</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

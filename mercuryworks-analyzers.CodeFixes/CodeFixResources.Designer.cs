@@ -8,8 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mercuryworks_analyzers
- {
+namespace mercuryworks_analyzers {
     using System;
     
     
