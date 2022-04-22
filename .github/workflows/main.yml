@@ -41,18 +41,10 @@ jobs:
         # uses: NuGet/setup-nuget@04b0c2b8d1b97922f67eca497d7cf0bf17b8ffe1
         uses: NuGet/setup-nuget@v1.0.5
         
-      - name: Create Nuget Packages
-        # You may pin to the exact commit or the version.
-        # uses: EasyDesk/action-dotnet-pack@356bb31a7479a6c99d305a46d3e85d36fbc856e4
-        uses: EasyDesk/action-dotnet-pack@v1.0.0
-        with:
-          # List of project names to pack separately.
-          project-names: mercuryworks_analyzers.Package
-          # Version of the Nuget packages.
-          package-version: ${VERSION}
-          output-dir: ./package-output
+      - name: Create NuGet Package
+        run: dotnet pack mercuryworks-analyzers.Package/mercuryworks_analyzers.Package.csproj -o ./package-output -c Release -p:Version=${VERSION} --no-build
     
-      - name: Push Nuget Packages
+      - name: Push Nuget Package
         # You may pin to the exact commit or the version.
         # uses: EasyDesk/action-nuget-push@117a240be3084e87386ec50ca518de99b9eaf2c3
         uses: EasyDesk/action-nuget-push@v1.0.0
