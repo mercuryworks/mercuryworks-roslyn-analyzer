@@ -47,7 +47,7 @@ jobs:
         uses: EasyDesk/action-dotnet-pack@v1.0.0
         with:
           # List of project names to pack separately.
-          project-names: mercuryworks_analyzer.Package
+          project-names: mercuryworks_analyzers.Package
           # Version of the Nuget packages.
           package-version: ${VERSION}
           output-dir: ./package-output
