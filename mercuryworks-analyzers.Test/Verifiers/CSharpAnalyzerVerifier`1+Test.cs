@@ -1,14 +1,14 @@
-﻿using Microsoft.CodeAnalysis.CodeRefactorings;
+﻿using mercuryworks_analyzers.Test.Verifiers;
 using Microsoft.CodeAnalysis.CSharp.Testing;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Testing.Verifiers;
-using orville_bailey_analyzers.Test.Verifiers;
 
-namespace orville_bailey_analyzers.Test
+namespace mercuryworks_analyzers.Test
 {
-    public static partial class CSharpCodeRefactoringVerifier<TCodeRefactoring>
-        where TCodeRefactoring : CodeRefactoringProvider, new()
+    public static partial class CSharpAnalyzerVerifier<TAnalyzer>
+        where TAnalyzer : DiagnosticAnalyzer, new()
     {
-        public class Test : CSharpCodeRefactoringTest<TCodeRefactoring, MSTestVerifier>
+        public class Test : CSharpAnalyzerTest<TAnalyzer, MSTestVerifier>
         {
             public Test()
             {

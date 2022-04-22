@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\orville_bailey_analyzers\orville_bailey_analyzers.csproj" />
+    <ProjectReference Include="..\mercuryworks-analyzers\mercuryworks_analyzers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

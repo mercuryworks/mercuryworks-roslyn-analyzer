@@ -1,10 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
-using VerifyCS = orville_bailey_analyzers.Test.CSharpCodeFixVerifier<
-    orville_bailey_analyzers.DoNotReturnTuplesAnalyzer,
-    orville_bailey_analyzers.DoNotReturnTuplesCodeFixProvider>;
+using VerifyCS = mercuryworks_analyzers.Test.CSharpCodeFixVerifier<
+    mercuryworks_analyzers.DoNotReturnTuplesAnalyzer,
+    mercuryworks_analyzers.DoNotReturnTuplesCodeFixProvider>;
 
-namespace orville_bailey_analyzers.Test
+namespace mercuryworks_analyzers.Test
 {
     [TestClass]
     public class DoNotReturnTuplesUnitTest
@@ -373,7 +373,8 @@ namespace test
         }
     }
 
-    interface test {
+    interface test
+    {
         (int a, int b) Test();
     }
 }

@@ -8,7 +8,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 
-namespace orville_bailey_analyzers
+namespace mercuryworks_analyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class DoNotReturnTuplesAnalyzer : DiagnosticAnalyzer

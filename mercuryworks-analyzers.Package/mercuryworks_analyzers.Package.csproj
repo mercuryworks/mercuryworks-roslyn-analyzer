@@ -8,13 +8,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>OrvilleBailey.Analyzer</PackageId>
+    <PackageId>MercuryWorks.Analyzer</PackageId>
     <PackageVersion>1.0.0.0</PackageVersion>
-    <Authors>Orville Bailey</Authors>
-    <PackageProjectUrl>https://github.com/orville94Bailey/orville-bailey-analyzers</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/orville94Bailey/orville-bailey-analyzers</RepositoryUrl>
+    <Authors>MercuryWorks</Authors>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl></RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>A collection of analyzers from preferences I encounter.</Description>
+    <Description>A collection of roslyn analyzers.</Description>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>analyzers</PackageTags>
     <DevelopmentDependency>true</DevelopmentDependency>
@@ -24,8 +24,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\orville_bailey_analyzers.CodeFixes\orville_bailey_analyzers.CodeFixes.csproj" />
-    <ProjectReference Include="..\orville_bailey_analyzers\orville_bailey_analyzers.csproj" />
+    <ProjectReference Include="..\mercuryworks-analyzers.CodeFixes\mercuryworks_analyzers.CodeFixes.csproj" />
+    <ProjectReference Include="..\mercuryworks-analyzers\mercuryworks_analyzers.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,8 +34,8 @@
 
   <Target Name="_AddAnalyzersToOutput">
     <ItemGroup>
-      <TfmSpecificPackageFile Include="$(OutputPath)\orville_bailey_analyzers.dll" PackagePath="analyzers/dotnet/cs" />
-      <TfmSpecificPackageFile Include="$(OutputPath)\orville_bailey_analyzers.CodeFixes.dll" PackagePath="analyzers/dotnet/cs" />
+      <TfmSpecificPackageFile Include="$(OutputPath)\mercuryworks_analyzers.dll" PackagePath="analyzers/dotnet/cs" />
+      <TfmSpecificPackageFile Include="$(OutputPath)\mercuryworks_analyzers.CodeFixes.dll" PackagePath="analyzers/dotnet/cs" />
     </ItemGroup>
   </Target>
 

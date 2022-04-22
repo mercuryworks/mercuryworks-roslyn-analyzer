@@ -15,7 +15,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace orville_bailey_analyzers
+namespace mercuryworks_analyzers
+
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(DoNotReturnTuplesCodeFixProvider)), Shared]
     public class DoNotReturnTuplesCodeFixProvider : CodeFixProvider

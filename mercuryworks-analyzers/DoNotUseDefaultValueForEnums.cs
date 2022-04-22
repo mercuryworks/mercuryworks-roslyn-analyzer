@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace orville_bailey_analyzers
+namespace mercuryworks_analyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class DoNotUseDefaultValueForEnums : DiagnosticAnalyzer
@@ -40,7 +40,7 @@ namespace orville_bailey_analyzers
             var doesNotHaveEqualsValue = declaration.EqualsValue == null;
 
             //shortcut value checking if not explicitly set to value
-            var shouldTriggerRule = doesNotHaveEqualsValue || (int)((declaration.EqualsValue.Value as LiteralExpressionSyntax).Token.Value) == 0;
+            var shouldTriggerRule = doesNotHaveEqualsValue || (int)(declaration.EqualsValue.Value as LiteralExpressionSyntax).Token.Value == 0;
 
             if (shouldTriggerRule)
                 context.ReportDiagnostic(

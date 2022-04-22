@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.VisualBasic.Testing;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace orville_bailey_analyzers.Test
+namespace mercuryworks_analyzers.Test
 {
     public static partial class VisualBasicCodeFixVerifier<TAnalyzer, TCodeFix>
         where TAnalyzer : DiagnosticAnalyzer, new()

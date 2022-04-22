@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "orville_bailey_analyzers", "orville_bailey_analyzers\orville_bailey_analyzers.csproj", "{DAFE9B6F-3AE6-40DC-B1B9-95C1C09FB38C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mercuryworks_analyzers", "mercuryworks-analyzers\mercuryworks_analyzers.csproj", "{DAFE9B6F-3AE6-40DC-B1B9-95C1C09FB38C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "orville_bailey_analyzers.CodeFixes", "orville_bailey_analyzers.CodeFixes\orville_bailey_analyzers.CodeFixes.csproj", "{CDAB5E8F-3DE7-4B4B-83B0-DCC37AB5DED3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mercuryworks_analyzers.CodeFixes", "mercuryworks-analyzers.CodeFixes\mercuryworks_analyzers.CodeFixes.csproj", "{CDAB5E8F-3DE7-4B4B-83B0-DCC37AB5DED3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "orville_bailey_analyzers.Package", "orville_bailey_analyzers.Package\orville_bailey_analyzers.Package.csproj", "{87685450-3D07-4F60-8CED-F2ABE8CFDD87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mercuryworks_analyzers.Package", "mercuryworks-analyzers.Package\mercuryworks_analyzers.Package.csproj", "{87685450-3D07-4F60-8CED-F2ABE8CFDD87}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "orville_bailey_analyzers.Test", "orville_bailey_analyzers.Test\orville_bailey_analyzers.Test.csproj", "{0B438A3F-5CED-4F52-A744-BF0A750A7CED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mercuryworks_analyzers.Test", "mercuryworks-analyzers.Test\mercuryworks_analyzers.Test.csproj", "{0B438A3F-5CED-4F52-A744-BF0A750A7CED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "orville_bailey_analyzers.Vsix", "orville_bailey_analyzers.Vsix\orville_bailey_analyzers.Vsix.csproj", "{DD4E7635-6C45-444D-84F7-FDAEE7D84DEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mercuryworks_analyzers.Vsix", "mercuryworks-analyzers.Vsix\mercuryworks_analyzers.Vsix.csproj", "{DD4E7635-6C45-444D-84F7-FDAEE7D84DEF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{539B5803-4804-485C-85D4-46216A72020C}"
 	ProjectSection(SolutionItems) = preProject

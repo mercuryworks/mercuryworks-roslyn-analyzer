@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using VerifyCS = orville_bailey_analyzers.Test.CSharpAnalyzerVerifier<orville_bailey_analyzers.DoNotUseDefaultValueForEnums>;
+using VerifyCS = mercuryworks_analyzers.Test.CSharpAnalyzerVerifier<mercuryworks_analyzers.DoNotUseDefaultValueForEnums>;
 
-namespace orville_bailey_analyzers.Test
+namespace mercuryworks_analyzers.Test
 {
     [TestClass]
     public class DoNotUseDefaultValueForEnumsTests

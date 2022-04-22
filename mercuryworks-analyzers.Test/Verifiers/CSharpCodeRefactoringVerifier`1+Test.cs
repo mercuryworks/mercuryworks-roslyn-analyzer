@@ -1,16 +1,14 @@
-﻿using Microsoft.CodeAnalysis.CodeFixes;
+﻿using mercuryworks_analyzers.Test.Verifiers;
+using Microsoft.CodeAnalysis.CodeRefactorings;
 using Microsoft.CodeAnalysis.CSharp.Testing;
-using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Testing.Verifiers;
-using orville_bailey_analyzers.Test.Verifiers;
 
-namespace orville_bailey_analyzers.Test
+namespace mercuryworks_analyzers.Test
 {
-    public static partial class CSharpCodeFixVerifier<TAnalyzer, TCodeFix>
-        where TAnalyzer : DiagnosticAnalyzer, new()
-        where TCodeFix : CodeFixProvider, new()
+    public static partial class CSharpCodeRefactoringVerifier<TCodeRefactoring>
+        where TCodeRefactoring : CodeRefactoringProvider, new()
     {
-        public class Test : CSharpCodeFixTest<TAnalyzer, TCodeFix, MSTestVerifier>
+        public class Test : CSharpCodeRefactoringTest<TCodeRefactoring, MSTestVerifier>
         {
             public Test()
             {
